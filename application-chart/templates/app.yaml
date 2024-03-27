@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  namespace: evershop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: {{ .Values.app.image }}
+        env:
+        - name: DB_HOST
+          value: "{{ .Values.app.dbHost }}"
+        - name: DB_PORT
+          value: "{{ .Values.app.dbPort }}"
+        - name: DB_PASSWORD
+          value: "{{ .Values.app.dbPassword }}"
+        - name: DB_USER
+          value: "{{ .Values.app.dbUser }}"
+        - name: DB_NAME
+          value: "{{ .Values.app.dbName }}"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+  namespace: evershop
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-lb
+  namespace: evershop
+spec:
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer

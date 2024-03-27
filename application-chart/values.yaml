@@ -1,0 +1,7 @@
+app:
+  image: "saikumarpinisetti/evershop:latest"
+  dbHost: "postgres.helm-project.svc.cluster.local"
+  dbPort: "5432"
+  dbPassword: "postgres"
+  dbUser: "postgres"
+  dbName: "postgres"
