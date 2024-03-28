@@ -2,3 +2,7 @@ apiVersion: v2
 name: application-chart
 version: 0.1.0
 description: Helm Chart for Application evershop
+dependencies:
+  - name: postgres-chart
+    version: 0.1.0
+    repository: "file:///home/ubuntu/EVERSHOP-HELM/postgres-helm/postgres-chart-0.1.0.tgz" #location of my dependency chart
