@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: my-app
   namespace: helm-dependency
+  labels:my-app
 spec:
   replicas: 1
   selector:
